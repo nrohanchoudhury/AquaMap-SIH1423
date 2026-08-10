@@ -1,0 +1,63 @@
+[
+  {
+    "id": "P-101",
+    "name": "Main Line Alpha (Trunk)",
+    "zone": "North District",
+    "diameter": "600 mm",
+    "material": "Ductile Iron (DI)",
+    "pressure": "4.2 bar",
+    "status": "Operational",
+    "coords": [
+      [22.3005, 73.1750],
+      [22.3025, 73.1810],
+      [22.3050, 73.1860],
+      [22.3080, 73.1910],
+      [22.3120, 73.1950]
+    ]
+  },
+  {
+    "id": "P-102",
+    "name": "Supply Feeder Beta",
+    "zone": "Central Zone",
+    "diameter": "450 mm",
+    "material": "HDPE",
+    "pressure": "3.8 bar",
+    "status": "Operational",
+    "coords": [
+      [22.3050, 73.1860],
+      [22.3010, 73.1890],
+      [22.2970, 73.1920],
+      [22.2930, 73.1940]
+    ]
+  },
+  {
+    "id": "P-103",
+    "name": "Branch Network Gamma",
+    "zone": "East Ward",
+    "diameter": "300 mm",
+    "material": "uPVC",
+    "pressure": "2.5 bar",
+    "status": "Degraded",
+    "coords": [
+      [22.3120, 73.1950],
+      [22.3160, 73.1980],
+      [22.3200, 73.2030],
+      [22.3230, 73.2080]
+    ]
+  },
+  {
+    "id": "P-104",
+    "name": "South Distribution Delta",
+    "zone": "South Suburbs",
+    "diameter": "350 mm",
+    "material": "Cast Iron",
+    "pressure": "3.1 bar",
+    "status": "Operational",
+    "coords": [
+      [22.2930, 73.1940],
+      [22.2880, 73.1880],
+      [22.2840, 73.1820],
+      [22.2810, 73.1760]
+    ]
+  }
+]

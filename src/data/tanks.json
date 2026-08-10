@@ -1,0 +1,42 @@
+[
+  {
+    "id": "TNK-01",
+    "name": "North District Overhead Water Reservoir (ESR-1)",
+    "type": "Elevated Service Reservoir",
+    "capacity": "2,500,000 Liters",
+    "currentLevel": "84%",
+    "lat": 22.3005,
+    "lng": 73.1750,
+    "status": "Optimal"
+  },
+  {
+    "id": "TNK-02",
+    "name": "Central Zone Sump & Booster Station (GSR-2)",
+    "type": "Ground Storage Reservoir & Pump Station",
+    "capacity": "4,000,000 Liters",
+    "currentLevel": "91%",
+    "lat": 22.3050,
+    "lng": 73.1860,
+    "status": "Optimal"
+  },
+  {
+    "id": "TNK-03",
+    "name": "East Ward Overhead Tank (ESR-3)",
+    "type": "Elevated Service Reservoir",
+    "capacity": "1,800,000 Liters",
+    "currentLevel": "62%",
+    "lat": 22.3120,
+    "lng": 73.1950,
+    "status": "Maintenance Advisory"
+  },
+  {
+    "id": "PMP-01",
+    "name": "High-Pressure Booster Station 4A",
+    "type": "Booster Pump Station",
+    "capacity": "120 HP Dual Pumps",
+    "currentLevel": "Active (4.5 Bar Output)",
+    "lat": 22.2930,
+    "lng": 73.1940,
+    "status": "Operational"
+  }
+]

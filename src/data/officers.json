@@ -1,0 +1,32 @@
+[
+  {
+    "id": "OFF-101",
+    "name": "Eng. Rajesh Kumar",
+    "designation": "Senior Hydraulic Engineer",
+    "zone": "North & Central Districts",
+    "phone": "+91 98765 43210",
+    "email": "r.kumar@aquamap.gov.in",
+    "activeTasks": 2,
+    "completedTasks": 48
+  },
+  {
+    "id": "OFF-102",
+    "name": "Eng. Sneha Kulkarni",
+    "designation": "Assistant Field Engineer",
+    "zone": "East Ward",
+    "phone": "+91 98765 87654",
+    "email": "s.kulkarni@aquamap.gov.in",
+    "activeTasks": 1,
+    "completedTasks": 35
+  },
+  {
+    "id": "OFF-103",
+    "name": "Eng. Amit Patel",
+    "designation": "Pipeline Maintenance Supervisor",
+    "zone": "South Suburbs",
+    "phone": "+91 98765 11223",
+    "email": "a.patel@aquamap.gov.in",
+    "activeTasks": 0,
+    "completedTasks": 62
+  }
+]
