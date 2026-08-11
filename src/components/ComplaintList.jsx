@@ -3,14 +3,11 @@ import { useAqua } from '../context/AquaContext';
 import { calculateHotspots } from '../utils/geoUtils';
 import {
   Search,
-  Filter,
   Flame,
   MapPin,
-  CheckCircle,
-  UserCheck,
   Eye,
-  AlertTriangle,
-  Cpu
+  Activity,
+  X
 } from 'lucide-react';
 
 export const ComplaintList = () => {
@@ -46,7 +43,7 @@ export const ComplaintList = () => {
   });
 
   return (
-    <div style={{ maxWidth: '1200px', margin: '30px auto', padding: '0 20px' }}>
+    <div style={{ maxWidth: '1200px', margin: '28px auto', padding: '0 20px' }}>
       {/* Hotspot Alert Banner */}
       {hotspotPipeline && activeComplaintCount > 0 && (
         <div className="hotspot-banner">
@@ -54,38 +51,38 @@ export const ComplaintList = () => {
             <div
               style={{
                 padding: '10px',
-                borderRadius: '12px',
-                background: 'rgba(244, 63, 94, 0.2)',
-                color: '#f43f5e'
+                borderRadius: '8px',
+                background: '#fee2e2',
+                color: '#dc2626'
               }}
             >
-              <Flame size={24} />
+              <Flame size={22} />
             </div>
             <div>
               <div
                 style={{
-                  fontSize: '0.8rem',
+                  fontSize: '0.78rem',
                   fontWeight: 700,
                   textTransform: 'uppercase',
-                  color: '#f43f5e',
+                  color: '#dc2626',
                   letterSpacing: '0.5px'
                 }}
               >
-                Municipal Pipeline Hotspot Detected
+                Hotspot Advisory
               </div>
-              <h4 style={{ fontSize: '1.05rem', fontWeight: 800 }}>
-                High Complaint Density on "{hotspotPipeline.name}" ({hotspotPipeline.zone})
+              <h4 style={{ fontSize: '1rem', fontWeight: 800, color: '#991b1b' }}>
+                High Issue Density on "{hotspotPipeline.name}" ({hotspotPipeline.zone})
               </h4>
-              <p style={{ fontSize: '0.84rem', color: '#cbd5e1' }}>
-                {activeComplaintCount} active issues detected along this line segment. Dispatch field pressure audit crew.
+              <p style={{ fontSize: '0.84rem', color: '#7f1d1d' }}>
+                {activeComplaintCount} active complaints logged along this pipeline segment. Field inspection advised.
               </p>
             </div>
           </div>
           <button
             className="btn-primary"
             style={{
-              background: 'linear-gradient(135deg, #f43f5e, #e11d48)',
-              boxShadow: '0 4px 14px rgba(244, 63, 94, 0.4)'
+              background: '#dc2626',
+              boxShadow: 'none'
             }}
             onClick={() =>
               focusComplaintOnMap(
@@ -102,11 +99,11 @@ export const ComplaintList = () => {
       <div
         className="card"
         style={{
-          padding: '20px',
+          padding: '16px 20px',
           marginBottom: '20px',
           display: 'flex',
           flexWrap: 'wrap',
-          gap: '16px',
+          gap: '14px',
           alignItems: 'center',
           justifyContent: 'space-between'
         }}
@@ -115,8 +112,8 @@ export const ComplaintList = () => {
           <div style={{ position: 'relative', width: '100%' }}>
             <Search
               size={18}
-              color="#64748b"
-              style={{ position: 'absolute', left: 14, top: 12 }}
+              color="#94a3b8"
+              style={{ position: 'absolute', left: 14, top: 11 }}
             />
             <input
               type="text"
@@ -132,7 +129,7 @@ export const ComplaintList = () => {
         <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
           <select
             className="form-select"
-            style={{ width: '160px' }}
+            style={{ width: '150px' }}
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
           >
@@ -145,7 +142,7 @@ export const ComplaintList = () => {
 
           <select
             className="form-select"
-            style={{ width: '160px' }}
+            style={{ width: '150px' }}
             value={priorityFilter}
             onChange={(e) => setPriorityFilter(e.target.value)}
           >
@@ -163,10 +160,10 @@ export const ComplaintList = () => {
         <table className="custom-table">
           <thead>
             <tr>
-              <th>ID & Urgency</th>
-              <th>Issue Type & Details</th>
+              <th>ID & Priority</th>
+              <th>Issue Details</th>
               <th>Affected Pipeline</th>
-              <th>Assigned Officer</th>
+              <th>Assigned Team</th>
               <th>Timestamp</th>
               <th>Status</th>
               <th>Actions</th>
@@ -175,7 +172,7 @@ export const ComplaintList = () => {
           <tbody>
             {filteredComplaints.length === 0 ? (
               <tr>
-                <td colSpan={7} style={{ textAlign: 'center', padding: '40px', color: '#64748b' }}>
+                <td colSpan={7} style={{ textAlign: 'center', padding: '40px', color: '#667784' }}>
                   No complaints match the current filter criteria.
                 </td>
               </tr>
@@ -185,17 +182,19 @@ export const ComplaintList = () => {
                 return (
                   <tr key={cmp.id}>
                     <td>
-                      <div style={{ fontWeight: 700, fontFamily: 'var(--font-mono)' }}>{cmp.id}</div>
+                      <div style={{ fontWeight: 700, fontFamily: 'var(--font-mono)', color: '#16324f' }}>
+                        {cmp.id}
+                      </div>
                       <span className={'badge badge-' + (cmp.priority ? cmp.priority.toLowerCase() : 'medium')}>
                         {cmp.priority}
                       </span>
                     </td>
                     <td>
-                      <div style={{ fontWeight: 700, color: '#f8fafc' }}>{cmp.type}</div>
+                      <div style={{ fontWeight: 700, color: '#1f2933' }}>{cmp.type}</div>
                       <div
                         style={{
                           fontSize: '0.8rem',
-                          color: '#94a3b8',
+                          color: '#667784',
                           maxWidth: '260px',
                           whiteSpace: 'nowrap',
                           overflow: 'hidden',
@@ -206,8 +205,8 @@ export const ComplaintList = () => {
                       </div>
                     </td>
                     <td>
-                      <div style={{ color: '#06b6d4', fontWeight: 600 }}>{cmp.pipelineName}</div>
-                      <div style={{ fontSize: '0.75rem', color: '#64748b' }}>ID: {cmp.pipelineId}</div>
+                      <div style={{ color: '#2563a6', fontWeight: 600 }}>{cmp.pipelineName}</div>
+                      <div style={{ fontSize: '0.75rem', color: '#94a3b8' }}>ID: {cmp.pipelineId}</div>
                     </td>
                     <td>
                       <select
@@ -223,7 +222,7 @@ export const ComplaintList = () => {
                         ))}
                       </select>
                     </td>
-                    <td style={{ fontSize: '0.8rem', color: '#94a3b8' }}>
+                    <td style={{ fontSize: '0.8rem', color: '#667784' }}>
                       {new Date(cmp.timestamp).toLocaleTimeString([], {
                         hour: '2-digit',
                         minute: '2-digit'
@@ -246,16 +245,16 @@ export const ComplaintList = () => {
                       <div style={{ display: 'flex', gap: '6px' }}>
                         <button
                           className="btn-secondary"
-                          style={{ padding: '6px 10px', fontSize: '0.78rem' }}
+                          style={{ padding: '5px 9px', fontSize: '0.78rem' }}
                           title="Focus on Map"
                           onClick={() => focusComplaintOnMap(cmp)}
                         >
-                          <MapPin size={14} color="#06b6d4" /> Map
+                          <MapPin size={14} color="#2563a6" /> Map
                         </button>
                         <button
                           className="btn-secondary"
-                          style={{ padding: '6px 10px', fontSize: '0.78rem' }}
-                          title="View Full AI Analysis"
+                          style={{ padding: '5px 9px', fontSize: '0.78rem' }}
+                          title="View Operational Diagnostics"
                           onClick={() => setSelectedDetail(cmp)}
                         >
                           <Eye size={14} /> View
@@ -276,8 +275,8 @@ export const ComplaintList = () => {
           style={{
             position: 'fixed',
             inset: 0,
-            background: 'rgba(0,0,0,0.75)',
-            backdropFilter: 'blur(8px)',
+            background: 'rgba(15, 23, 42, 0.5)',
+            backdropFilter: 'blur(3px)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -301,8 +300,8 @@ export const ComplaintList = () => {
             >
               <div>
                 <span className="badge badge-critical">{selectedDetail.id}</span>
-                <h3 style={{ fontSize: '1.2rem', fontWeight: 800, marginTop: '4px' }}>
-                  {selectedDetail.type} Report
+                <h3 style={{ fontSize: '1.15rem', fontWeight: 800, color: '#16324f', marginTop: '4px' }}>
+                  {selectedDetail.type} Report Details
                 </h3>
               </div>
               <button
@@ -310,21 +309,23 @@ export const ComplaintList = () => {
                 style={{
                   background: 'none',
                   border: 'none',
-                  color: '#94a3b8',
+                  color: '#667784',
                   fontSize: '1.2rem',
                   cursor: 'pointer'
                 }}
               >
-                ✕
+                <X size={20} />
               </button>
             </div>
 
-            <p style={{ color: '#cbd5e1', marginBottom: '16px' }}>{selectedDetail.description}</p>
+            <p style={{ color: '#1f2933', marginBottom: '16px', fontSize: '0.9rem' }}>
+              {selectedDetail.description}
+            </p>
 
             <div
               style={{
-                background: 'rgba(6, 182, 212, 0.08)',
-                border: '1px solid rgba(6, 182, 212, 0.3)',
+                background: '#eaf3f8',
+                border: '1px solid #cbd5e1',
                 borderRadius: '8px',
                 padding: '14px',
                 marginBottom: '16px'
@@ -335,17 +336,17 @@ export const ComplaintList = () => {
                   display: 'flex',
                   alignItems: 'center',
                   gap: '6px',
-                  color: '#06b6d4',
+                  color: '#16324f',
                   fontWeight: 700,
                   marginBottom: '6px'
                 }}
               >
-                <Cpu size={18} /> Rule-Based AI Engine Diagnostics
+                <Activity size={16} color="#2563a6" /> Operational Issue Classification
               </div>
               <div
                 style={{
                   fontSize: '0.85rem',
-                  color: '#94a3b8',
+                  color: '#475569',
                   display: 'flex',
                   flexDirection: 'column',
                   gap: '4px'
@@ -363,8 +364,8 @@ export const ComplaintList = () => {
                 <div>
                   <strong>Target SLA:</strong> {selectedDetail.estimatedSLA || '12 Hours'}
                 </div>
-                <div style={{ marginTop: '4px', color: '#99f6e4' }}>
-                  <strong>Operational Recommendation:</strong> {selectedDetail.aiRecommendation}
+                <div style={{ marginTop: '4px', color: '#1e293b' }}>
+                  <strong>Recommended Field Action:</strong> {selectedDetail.aiRecommendation}
                 </div>
               </div>
             </div>
@@ -378,7 +379,7 @@ export const ComplaintList = () => {
                   setSelectedDetail(null);
                 }}
               >
-                <MapPin size={16} /> Focus on Map
+                <MapPin size={15} /> Locate on Map
               </button>
               <button className="btn-secondary" onClick={() => setSelectedDetail(null)}>
                 Close

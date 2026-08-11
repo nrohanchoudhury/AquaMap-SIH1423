@@ -1,23 +1,25 @@
 import React from 'react';
 import { useAqua } from '../context/AquaContext';
-import { Users, Phone, Mail, CheckCircle2, Clock, AlertCircle, ArrowRight } from 'lucide-react';
+import { Phone } from 'lucide-react';
 
 export const OfficerDashboard = () => {
   const { officers, complaints, updateComplaintStatus, focusComplaintOnMap } = useAqua();
 
   return (
-    <div style={{ maxWidth: '1200px', margin: '30px auto', padding: '0 20px' }}>
+    <div style={{ maxWidth: '1200px', margin: '28px auto', padding: '0 20px' }}>
       <div style={{ marginBottom: '24px' }}>
-        <h2 style={{ fontSize: '1.4rem', fontWeight: 800 }}>Field Engineering Officer Dashboard</h2>
-        <p style={{ fontSize: '0.88rem', color: '#94a3b8' }}>
-          Monitor municipal engineer workloads, zone assignments, and active task queues.
+        <h2 style={{ fontSize: '1.3rem', fontWeight: 800, color: '#16324f' }}>
+          Field Engineering & Response Teams
+        </h2>
+        <p style={{ fontSize: '0.88rem', color: '#667784' }}>
+          Overview of municipal engineer workload queues, zone assignments, and active task status.
         </p>
       </div>
 
       <div
         style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))',
           gap: '20px'
         }}
       >
@@ -29,33 +31,35 @@ export const OfficerDashboard = () => {
           const resolvedCount = assignedComplaints.filter((c) => c.status === 'Resolved').length;
 
           return (
-            <div key={officer.id} className="card" style={{ padding: '24px' }}>
+            <div key={officer.id} className="card" style={{ padding: '22px' }}>
               <div
                 style={{
                   display: 'flex',
                   alignItems: 'flex-start',
                   justifyContent: 'space-between',
-                  marginBottom: '16px'
+                  marginBottom: '14px'
                 }}
               >
                 <div>
-                  <h3 style={{ fontSize: '1.15rem', fontWeight: 800 }}>{officer.name}</h3>
-                  <div style={{ fontSize: '0.82rem', color: '#06b6d4', fontWeight: 600 }}>
+                  <h3 style={{ fontSize: '1.1rem', fontWeight: 800, color: '#16324f' }}>
+                    {officer.name}
+                  </h3>
+                  <div style={{ fontSize: '0.82rem', color: '#2563a6', fontWeight: 600 }}>
                     {officer.designation}
                   </div>
-                  <div style={{ fontSize: '0.78rem', color: '#94a3b8', marginTop: '2px' }}>
+                  <div style={{ fontSize: '0.78rem', color: '#667784', marginTop: '2px' }}>
                     Zone: {officer.zone}
                   </div>
                 </div>
                 <div
                   style={{
-                    background: 'rgba(6, 182, 212, 0.12)',
-                    color: '#06b6d4',
+                    background: '#e0f2fe',
+                    color: '#0369a1',
                     fontWeight: 700,
-                    fontSize: '0.78rem',
-                    padding: '4px 10px',
+                    fontSize: '0.75rem',
+                    padding: '3px 9px',
                     borderRadius: '9999px',
-                    border: '1px solid rgba(6, 182, 212, 0.3)'
+                    border: '1px solid #7dd3fc'
                   }}
                 >
                   ID: {officer.id}
@@ -67,7 +71,7 @@ export const OfficerDashboard = () => {
                   display: 'flex',
                   gap: '12px',
                   fontSize: '0.8rem',
-                  color: '#64748b',
+                  color: '#667784',
                   marginBottom: '16px'
                 }}
               >
@@ -82,66 +86,71 @@ export const OfficerDashboard = () => {
                   display: 'grid',
                   gridTemplateColumns: '1fr 1fr',
                   gap: '10px',
-                  marginBottom: '20px'
+                  marginBottom: '18px'
                 }}
               >
                 <div
                   style={{
-                    background: 'rgba(244, 63, 94, 0.1)',
-                    border: '1px solid rgba(244, 63, 94, 0.25)',
+                    background: '#fee2e2',
+                    border: '1px solid #fca5a5',
                     borderRadius: '8px',
                     padding: '10px',
                     textAlign: 'center'
                   }}
                 >
-                  <div style={{ fontSize: '1.2rem', fontWeight: 800, color: '#f43f5e' }}>
+                  <div style={{ fontSize: '1.2rem', fontWeight: 800, color: '#dc2626' }}>
                     {activeTasks.length}
                   </div>
-                  <div style={{ fontSize: '0.75rem', color: '#fda4af' }}>Active Queue</div>
+                  <div style={{ fontSize: '0.74rem', color: '#991b1b', fontWeight: 600 }}>
+                    Active Queue
+                  </div>
                 </div>
 
                 <div
                   style={{
-                    background: 'rgba(16, 185, 129, 0.1)',
-                    border: '1px solid rgba(16, 185, 129, 0.25)',
+                    background: '#dcfce7',
+                    border: '1px solid #86efac',
                     borderRadius: '8px',
                     padding: '10px',
                     textAlign: 'center'
                   }}
                 >
-                  <div style={{ fontSize: '1.2rem', fontWeight: 800, color: '#10b981' }}>
+                  <div style={{ fontSize: '1.2rem', fontWeight: 800, color: '#16a34a' }}>
                     {officer.completedTasks + resolvedCount}
                   </div>
-                  <div style={{ fontSize: '0.75rem', color: '#6ee7b7' }}>Resolved Issues</div>
+                  <div style={{ fontSize: '0.74rem', color: '#166534', fontWeight: 600 }}>
+                    Resolved Issues
+                  </div>
                 </div>
               </div>
 
-              {/* Assigned Task Queue list */}
+              {/* Assigned Task Queue */}
               <h4
                 style={{
-                  fontSize: '0.85rem',
+                  fontSize: '0.8rem',
                   fontWeight: 700,
                   textTransform: 'uppercase',
-                  color: '#94a3b8',
-                  letterSpacing: '0.5px',
+                  color: '#667784',
+                  letterSpacing: '0.4px',
                   marginBottom: '10px'
                 }}
               >
-                Assigned Issue Queue ({assignedComplaints.length})
+                Assigned Work Queue ({assignedComplaints.length})
               </h4>
 
               {assignedComplaints.length === 0 ? (
                 <div
                   style={{
                     fontSize: '0.82rem',
-                    color: '#64748b',
+                    color: '#667784',
                     textAlign: 'center',
-                    padding: '16px',
-                    background: 'rgba(255,255,255,0.02)',
-                    borderRadius: '8px'
+                    padding: '14px',
+                    background: '#f8fafc',
+                    borderRadius: '6px',
+                    border: '1px solid #e2e8f0'
                   }}
                 >
-                  No active tasks assigned to this officer.
+                  No active tasks assigned to this team.
                 </div>
               ) : (
                 <div
@@ -157,10 +166,10 @@ export const OfficerDashboard = () => {
                     <div
                       key={task.id}
                       style={{
-                        background: 'rgba(30, 41, 59, 0.6)',
+                        background: '#f8fafc',
                         border: '1px solid var(--border-color)',
-                        borderRadius: '8px',
-                        padding: '12px'
+                        borderRadius: '6px',
+                        padding: '10px 12px'
                       }}
                     >
                       <div
@@ -171,7 +180,9 @@ export const OfficerDashboard = () => {
                           marginBottom: '4px'
                         }}
                       >
-                        <span style={{ fontWeight: 700, fontSize: '0.88rem' }}>{task.type}</span>
+                        <span style={{ fontWeight: 700, fontSize: '0.86rem', color: '#1f2933' }}>
+                          {task.type}
+                        </span>
                         <span
                           className={'badge badge-' + (task.priority ? task.priority.toLowerCase() : 'medium')}
                         >
@@ -179,8 +190,8 @@ export const OfficerDashboard = () => {
                         </span>
                       </div>
 
-                      <div style={{ fontSize: '0.78rem', color: '#94a3b8', marginBottom: '8px' }}>
-                        Line: <strong style={{ color: '#06b6d4' }}>{task.pipelineName}</strong>
+                      <div style={{ fontSize: '0.78rem', color: '#667784', marginBottom: '8px' }}>
+                        Line: <strong style={{ color: '#2563a6' }}>{task.pipelineName}</strong>
                       </div>
 
                       <div style={{ display: 'flex', gap: '6px' }}>
@@ -197,7 +208,7 @@ export const OfficerDashboard = () => {
                             style={{
                               padding: '4px 8px',
                               fontSize: '0.75rem',
-                              background: '#10b981'
+                              background: '#16a34a'
                             }}
                             onClick={() => updateComplaintStatus(task.id, 'Resolved')}
                           >

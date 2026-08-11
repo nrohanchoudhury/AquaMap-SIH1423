@@ -1,6 +1,6 @@
 import React from 'react';
 import { useAqua } from '../context/AquaContext';
-import { CheckCircle2, AlertCircle, Info, X } from 'lucide-react';
+import { CheckCircle2, Info, X } from 'lucide-react';
 
 export const ToastContainer = () => {
   const { toasts, removeToast } = useAqua();
@@ -10,26 +10,26 @@ export const ToastContainer = () => {
   return (
     <div className="toast-container">
       {toasts.map((toast) => (
-        <div key={toast.id} className={`toast toast-${toast.type}`}>
+        <div key={toast.id} className={'toast toast-' + toast.type}>
           <div className="toast-icon">
             {toast.type === 'success' ? (
-              <CheckCircle2 size={20} color="#10b981" />
+              <CheckCircle2 size={18} color="#16a34a" />
             ) : (
-              <Info size={20} color="#06b6d4" />
+              <Info size={18} color="#2563a6" />
             )}
           </div>
           <div className="toast-content" style={{ flex: 1 }}>
-            <div style={{ fontWeight: 700, fontSize: '0.9rem', marginBottom: '2px' }}>
+            <div style={{ fontWeight: 700, fontSize: '0.88rem', color: '#16324f', marginBottom: '2px' }}>
               {toast.title}
             </div>
-            <div style={{ fontSize: '0.82rem', color: '#94a3b8' }}>{toast.message}</div>
+            <div style={{ fontSize: '0.8rem', color: '#667784' }}>{toast.message}</div>
           </div>
           <button
             onClick={() => removeToast(toast.id)}
             style={{
               background: 'none',
               border: 'none',
-              color: '#64748b',
+              color: '#94a3b8',
               cursor: 'pointer'
             }}
           >

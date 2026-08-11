@@ -2,18 +2,15 @@ import React from 'react';
 import { useAqua } from '../context/AquaContext';
 import {
   BarChart3,
-  PieChart,
   ShieldCheck,
   AlertTriangle,
   Activity,
-  Droplet,
   Layers,
-  Clock,
-  TrendingUp
+  Clock
 } from 'lucide-react';
 
 export const Analytics = () => {
-  const { pipelines, complaints, officers } = useAqua();
+  const { pipelines, complaints } = useAqua();
 
   const totalComplaints = complaints.length;
   const resolvedCount = complaints.filter((c) => c.status === 'Resolved').length;
@@ -34,13 +31,13 @@ export const Analytics = () => {
   };
 
   return (
-    <div style={{ maxWidth: '1200px', margin: '30px auto', padding: '0 20px' }}>
+    <div style={{ maxWidth: '1200px', margin: '28px auto', padding: '0 20px' }}>
       <div style={{ marginBottom: '24px' }}>
-        <h2 style={{ fontSize: '1.4rem', fontWeight: 800 }}>
+        <h2 style={{ fontSize: '1.3rem', fontWeight: 800, color: '#16324f' }}>
           Municipal Water Network Analytics & Insights
         </h2>
-        <p style={{ fontSize: '0.88rem', color: '#94a3b8' }}>
-          Real-time GIS statistics, resolution performance metrics, and pipeline vulnerability metrics.
+        <p style={{ fontSize: '0.88rem', color: '#667784' }}>
+          Operational GIS metrics, category breakdowns, resolution SLA efficiency, and pipeline vulnerability indices.
         </p>
       </div>
 
@@ -53,91 +50,95 @@ export const Analytics = () => {
           marginBottom: '24px'
         }}
       >
-        <div className="card" style={{ padding: '20px' }}>
+        <div className="card" style={{ padding: '18px 20px' }}>
           <div
             style={{
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
-              color: '#06b6d4',
+              color: '#2563a6',
               marginBottom: '8px'
             }}
           >
-            <span style={{ fontSize: '0.85rem', fontWeight: 700, color: '#94a3b8' }}>
-              Mapped Pipeline Lines
+            <span style={{ fontSize: '0.82rem', fontWeight: 700, color: '#667784' }}>
+              Network Pipelines Span
             </span>
-            <Layers size={22} />
+            <Layers size={20} />
           </div>
-          <div style={{ fontSize: '1.8rem', fontWeight: 800 }}>{pipelines.length} Lines</div>
-          <div style={{ fontSize: '0.78rem', color: '#64748b', marginTop: '4px' }}>
+          <div style={{ fontSize: '1.6rem', fontWeight: 800, color: '#16324f' }}>
+            {pipelines.length} Lines
+          </div>
+          <div style={{ fontSize: '0.78rem', color: '#667784', marginTop: '2px' }}>
             ~14.2 km Total Network Span
           </div>
         </div>
 
-        <div className="card" style={{ padding: '20px' }}>
+        <div className="card" style={{ padding: '18px 20px' }}>
           <div
             style={{
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
-              color: '#f43f5e',
+              color: '#dc2626',
               marginBottom: '8px'
             }}
           >
-            <span style={{ fontSize: '0.85rem', fontWeight: 700, color: '#94a3b8' }}>
+            <span style={{ fontSize: '0.82rem', fontWeight: 700, color: '#667784' }}>
               Active Unresolved Issues
             </span>
-            <AlertTriangle size={22} />
+            <AlertTriangle size={20} />
           </div>
-          <div style={{ fontSize: '1.8rem', fontWeight: 800, color: '#f43f5e' }}>
+          <div style={{ fontSize: '1.6rem', fontWeight: 800, color: '#dc2626' }}>
             {activeCount}
           </div>
-          <div style={{ fontSize: '0.78rem', color: '#fda4af', marginTop: '4px' }}>
+          <div style={{ fontSize: '0.78rem', color: '#991b1b', marginTop: '2px' }}>
             {highPriorityCount} High / Critical Priority
           </div>
         </div>
 
-        <div className="card" style={{ padding: '20px' }}>
+        <div className="card" style={{ padding: '18px 20px' }}>
           <div
             style={{
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
-              color: '#10b981',
+              color: '#16a34a',
               marginBottom: '8px'
             }}
           >
-            <span style={{ fontSize: '0.85rem', fontWeight: 700, color: '#94a3b8' }}>
-              Resolution Efficiency
+            <span style={{ fontSize: '0.82rem', fontWeight: 700, color: '#667784' }}>
+              Resolution SLA Rate
             </span>
-            <ShieldCheck size={22} />
+            <ShieldCheck size={20} />
           </div>
-          <div style={{ fontSize: '1.8rem', fontWeight: 800, color: '#10b981' }}>
+          <div style={{ fontSize: '1.6rem', fontWeight: 800, color: '#16a34a' }}>
             {resolutionRate}%
           </div>
-          <div style={{ fontSize: '0.78rem', color: '#6ee7b7', marginTop: '4px' }}>
-            {resolvedCount} of {totalComplaints} Resolved
+          <div style={{ fontSize: '0.78rem', color: '#166534', marginTop: '2px' }}>
+            {resolvedCount} of {totalComplaints} Issues Resolved
           </div>
         </div>
 
-        <div className="card" style={{ padding: '20px' }}>
+        <div className="card" style={{ padding: '18px 20px' }}>
           <div
             style={{
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
-              color: '#3b82f6',
+              color: '#2563a6',
               marginBottom: '8px'
             }}
           >
-            <span style={{ fontSize: '0.85rem', fontWeight: 700, color: '#94a3b8' }}>
-              Average SLA Time
+            <span style={{ fontSize: '0.82rem', fontWeight: 700, color: '#667784' }}>
+              Average Response Time
             </span>
-            <Clock size={22} />
+            <Clock size={20} />
           </div>
-          <div style={{ fontSize: '1.8rem', fontWeight: 800 }}>4.2 Hrs</div>
-          <div style={{ fontSize: '0.78rem', color: '#64748b', marginTop: '4px' }}>
-            Emergency SLA: 2.0 Hrs Target
+          <div style={{ fontSize: '1.6rem', fontWeight: 800, color: '#16324f' }}>
+            4.2 Hours
+          </div>
+          <div style={{ fontSize: '0.78rem', color: '#667784', marginTop: '2px' }}>
+            Emergency SLA: 2.0 Hours Target
           </div>
         </div>
       </div>
@@ -146,20 +147,20 @@ export const Analytics = () => {
       <div
         style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(450px, 1fr))',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(420px, 1fr))',
           gap: '20px'
         }}
       >
-        {/* Category Breakdown Bar Chart */}
-        <div className="card" style={{ padding: '24px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '20px' }}>
-            <BarChart3 size={20} color="#06b6d4" />
-            <h3 style={{ fontSize: '1.1rem', fontWeight: 800 }}>
-              Issue Category Distribution
+        {/* Category Breakdown */}
+        <div className="card" style={{ padding: '22px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '18px' }}>
+            <BarChart3 size={18} color="#2563a6" />
+            <h3 style={{ fontSize: '1.05rem', fontWeight: 800, color: '#16324f' }}>
+              Complaint Category Distribution
             </h3>
           </div>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
             {Object.entries(categoryCounts).map(([cat, count]) => {
               const pct = totalComplaints > 0 ? Math.round((count / totalComplaints) * 100) : 0;
               return (
@@ -168,22 +169,23 @@ export const Analytics = () => {
                     style={{
                       display: 'flex',
                       justifyContent: 'space-between',
-                      fontSize: '0.88rem',
+                      fontSize: '0.86rem',
                       fontWeight: 600,
-                      marginBottom: '6px'
+                      color: '#1f2933',
+                      marginBottom: '4px'
                     }}
                   >
                     <span>{cat}</span>
-                    <span style={{ color: '#06b6d4', fontFamily: 'var(--font-mono)' }}>
+                    <span style={{ color: '#2563a6', fontFamily: 'var(--font-mono)' }}>
                       {count} ({pct}%)
                     </span>
                   </div>
                   <div
                     style={{
                       width: '100%',
-                      height: '10px',
-                      background: 'rgba(51, 65, 85, 0.5)',
-                      borderRadius: '5px',
+                      height: '8px',
+                      background: '#f1f5f9',
+                      borderRadius: '4px',
                       overflow: 'hidden'
                     }}
                   >
@@ -193,12 +195,12 @@ export const Analytics = () => {
                         height: '100%',
                         background:
                           cat === 'Leakage'
-                            ? 'linear-gradient(90deg, #f43f5e, #fb923c)'
+                            ? '#dc2626'
                             : cat === 'No Supply'
-                            ? 'linear-gradient(90deg, #f59e0b, #facc15)'
-                            : 'linear-gradient(90deg, #06b6d4, #3b82f6)',
-                        borderRadius: '5px',
-                        transition: 'width 0.6s ease'
+                            ? '#d97706'
+                            : '#2563a6',
+                        borderRadius: '4px',
+                        transition: 'width 0.5s ease'
                       }}
                     ></div>
                   </div>
@@ -209,27 +211,27 @@ export const Analytics = () => {
         </div>
 
         {/* Pipeline Defect Vulnerability Ratings */}
-        <div className="card" style={{ padding: '24px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '20px' }}>
-            <Activity size={20} color="#f43f5e" />
-            <h3 style={{ fontSize: '1.1rem', fontWeight: 800 }}>
-              Pipeline Vulnerability Index
+        <div className="card" style={{ padding: '22px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '18px' }}>
+            <Activity size={18} color="#dc2626" />
+            <h3 style={{ fontSize: '1.05rem', fontWeight: 800, color: '#16324f' }}>
+              Pipeline Vulnerability Ratings
             </h3>
           </div>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
             {pipelines.map((pipe) => {
               const pipeComplaints = complaints.filter((c) => c.pipelineId === pipe.id);
               const activeCountOnPipe = pipeComplaints.filter((c) => c.status !== 'Resolved').length;
 
               let riskLevel = 'Low Risk';
-              let riskColor = '#10b981';
+              let riskClass = 'badge-normal';
               if (activeCountOnPipe >= 2) {
-                riskLevel = 'Critical Risk';
-                riskColor = '#f43f5e';
+                riskLevel = 'High Vulnerability';
+                riskClass = 'badge-critical';
               } else if (activeCountOnPipe === 1) {
                 riskLevel = 'Moderate Risk';
-                riskColor = '#f59e0b';
+                riskClass = 'badge-medium';
               }
 
               return (
@@ -239,34 +241,26 @@ export const Analytics = () => {
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'space-between',
-                    padding: '12px 16px',
-                    background: 'rgba(30, 41, 59, 0.5)',
+                    padding: '12px 14px',
+                    background: '#f8fafc',
                     border: '1px solid var(--border-color)',
-                    borderRadius: '8px'
+                    borderRadius: '6px'
                   }}
                 >
                   <div>
-                    <div style={{ fontWeight: 700, fontSize: '0.92rem' }}>{pipe.name}</div>
-                    <div style={{ fontSize: '0.78rem', color: '#94a3b8' }}>
+                    <div style={{ fontWeight: 700, fontSize: '0.88rem', color: '#1f2933' }}>
+                      {pipe.name}
+                    </div>
+                    <div style={{ fontSize: '0.76rem', color: '#667784' }}>
                       Material: {pipe.material} | Spec: {pipe.diameter}
                     </div>
                   </div>
 
                   <div style={{ textAlign: 'right' }}>
-                    <span
-                      style={{
-                        fontSize: '0.75rem',
-                        fontWeight: 700,
-                        padding: '2px 8px',
-                        borderRadius: '4px',
-                        background: `${riskColor}22`,
-                        color: riskColor,
-                        border: `1px solid ${riskColor}55`
-                      }}
-                    >
+                    <span className={'badge ' + riskClass}>
                       {riskLevel}
                     </span>
-                    <div style={{ fontSize: '0.75rem', color: '#64748b', marginTop: '2px' }}>
+                    <div style={{ fontSize: '0.74rem', color: '#667784', marginTop: '2px' }}>
                       {activeCountOnPipe} active issues
                     </div>
                   </div>

@@ -12,54 +12,51 @@ import L from 'leaflet';
 import { useAqua } from '../context/AquaContext';
 import {
   Layers,
-  AlertTriangle,
-  Zap,
-  ShieldAlert,
   MapPin,
   CheckCircle,
   Crosshair,
-  UserCheck,
-  Cpu
+  ShieldCheck,
+  Activity
 } from 'lucide-react';
 
-// Create custom Leaflet DivIcons to prevent missing PNG asset path issues in Vite
+// Create custom Leaflet DivIcons for clean asset-free rendering
 const createDivIcon = (htmlContent, className) => {
   return L.divIcon({
     html: htmlContent,
     className: 'custom-leaflet-marker ' + className,
-    iconSize: [32, 32],
-    iconAnchor: [16, 16],
-    popupAnchor: [0, -16]
+    iconSize: [30, 30],
+    iconAnchor: [15, 15],
+    popupAnchor: [0, -15]
   });
 };
 
 const tankIcon = createDivIcon(
-  `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>`,
+  `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>`,
   'marker-tank'
 );
 
 const pumpIcon = createDivIcon(
-  `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>`,
+  `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>`,
   'marker-pump'
 );
 
 const complaintHighIcon = createDivIcon(
-  `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 9v4m0 4h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"/></svg>`,
+  `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 9v4m0 4h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"/></svg>`,
   'marker-complaint-high'
 );
 
 const complaintMedIcon = createDivIcon(
-  `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>`,
+  `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>`,
   'marker-complaint-med'
 );
 
 const complaintResolvedIcon = createDivIcon(
-  `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>`,
+  `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>`,
   'marker-complaint-resolved'
 );
 
 const pinPickerIcon = createDivIcon(
-  `<svg width="22" height="22" viewBox="0 0 24 24" fill="#06b6d4" stroke="#ffffff" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3" fill="#ffffff"/></svg>`,
+  `<svg width="20" height="20" viewBox="0 0 24 24" fill="#2563a6" stroke="#ffffff" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3" fill="#ffffff"/></svg>`,
   'marker-tank'
 );
 
@@ -81,7 +78,7 @@ const MapFlyTo = ({ selectedComplaint }) => {
   useEffect(() => {
     if (selectedComplaint && selectedComplaint.lat && selectedComplaint.lng) {
       map.flyTo([selectedComplaint.lat, selectedComplaint.lng], 15, {
-        duration: 1.2
+        duration: 1.0
       });
     }
   }, [selectedComplaint, map]);
@@ -120,7 +117,7 @@ export const MapView = () => {
 
   return (
     <div className="map-view-container">
-      {/* Sidebar Controls & Complaint Selector */}
+      {/* Sidebar Controls & Operational Details */}
       <aside className="map-sidebar">
         <div>
           <div
@@ -131,8 +128,10 @@ export const MapView = () => {
               marginBottom: '12px'
             }}
           >
-            <Layers size={20} color="#06b6d4" />
-            <h3 style={{ fontSize: '1.1rem', fontWeight: 800 }}>GIS Map Overlays</h3>
+            <Layers size={18} color="#16324f" />
+            <h3 style={{ fontSize: '1.05rem', fontWeight: 800, color: '#16324f' }}>
+              GIS Layer Controls
+            </h3>
           </div>
 
           <div className="filter-group">
@@ -143,7 +142,7 @@ export const MapView = () => {
                     width: 12,
                     height: 12,
                     borderRadius: 2,
-                    background: '#0284c7'
+                    background: '#2563a6'
                   }}
                 ></span>
                 Pipelines Network
@@ -162,10 +161,10 @@ export const MapView = () => {
                     width: 12,
                     height: 12,
                     borderRadius: '50%',
-                    background: '#0284c7'
+                    background: '#2f7f83'
                   }}
                 ></span>
-                Water Tanks & Reservoirs
+                Overhead Water Tanks
               </span>
               <input
                 type="checkbox"
@@ -181,7 +180,7 @@ export const MapView = () => {
                     width: 12,
                     height: 12,
                     borderRadius: '50%',
-                    background: '#0d9488'
+                    background: '#16324f'
                   }}
                 ></span>
                 Booster Pump Stations
@@ -200,7 +199,7 @@ export const MapView = () => {
                     width: 12,
                     height: 12,
                     borderRadius: '50%',
-                    background: '#f43f5e'
+                    background: '#dc2626'
                   }}
                 ></span>
                 Citizen Complaints
@@ -219,11 +218,11 @@ export const MapView = () => {
                     width: 12,
                     height: 12,
                     borderRadius: 2,
-                    background: '#f43f5e',
-                    border: '1px dashed #fff'
+                    background: '#dc2626',
+                    border: '1px dashed #ffffff'
                   }}
                 ></span>
-                Defect Highlight Polyline
+                Defect Polyline Highlight
               </span>
               <input
                 type="checkbox"
@@ -234,39 +233,39 @@ export const MapView = () => {
           </div>
         </div>
 
-        {/* Pin Location Picker Action */}
-        <div className="card" style={{ padding: '16px', background: 'rgba(6, 182, 212, 0.08)' }}>
+        {/* Pin Dropper Action */}
+        <div className="card" style={{ padding: '16px', background: '#eaf3f8', borderColor: '#cbd5e1' }}>
           <div
             style={{
               display: 'flex',
               alignItems: 'center',
               gap: '8px',
               fontWeight: 700,
-              fontSize: '0.9rem',
-              color: '#06b6d4',
-              marginBottom: '8px'
+              fontSize: '0.88rem',
+              color: '#16324f',
+              marginBottom: '6px'
             }}
           >
-            <Crosshair size={18} />
-            <span>Map Pin Dropper</span>
+            <Crosshair size={18} color="#2563a6" />
+            <span>Map Pin Selector</span>
           </div>
-          <p style={{ fontSize: '0.82rem', color: '#94a3b8', marginBottom: '12px' }}>
+          <p style={{ fontSize: '0.82rem', color: '#667784', marginBottom: '12px' }}>
             {isPinPickerActive
-              ? 'Click anywhere on the map to select complaint location coordinates.'
-              : 'Pick precise coordinates on the map to pre-fill the issue submission form.'}
+              ? 'Click anywhere on the map to set complaint location coordinates.'
+              : 'Pick location coordinates directly on the GIS map to auto-fill the complaint form.'}
           </p>
           <button
             className={isPinPickerActive ? 'btn-secondary' : 'btn-primary'}
             style={{ width: '100%', fontSize: '0.85rem' }}
             onClick={() => setIsPinPickerActive(!isPinPickerActive)}
           >
-            {isPinPickerActive ? 'Cancel Pin Selection' : 'Drop Pin for New Issue'}
+            {isPinPickerActive ? 'Cancel Pin Dropper' : 'Drop Pin for New Issue'}
           </button>
         </div>
 
-        {/* Selected Complaint Details Panel */}
+        {/* Selected Complaint Details */}
         {selectedComplaint ? (
-          <div className="card" style={{ padding: '16px', borderColor: 'var(--primary-aqua)' }}>
+          <div className="card" style={{ padding: '16px', borderColor: '#2563a6' }}>
             <div
               style={{
                 display: 'flex',
@@ -277,7 +276,7 @@ export const MapView = () => {
             >
               <div>
                 <span className="badge badge-critical">{selectedComplaint.id}</span>
-                <h4 style={{ fontSize: '1rem', fontWeight: 800, marginTop: '4px' }}>
+                <h4 style={{ fontSize: '0.98rem', fontWeight: 800, marginTop: '4px', color: '#16324f' }}>
                   {selectedComplaint.type}
                 </h4>
               </div>
@@ -288,32 +287,32 @@ export const MapView = () => {
               </span>
             </div>
 
-            <p style={{ fontSize: '0.85rem', color: '#cbd5e1', marginBottom: '10px' }}>
+            <p style={{ fontSize: '0.84rem', color: '#1f2933', marginBottom: '10px' }}>
               {selectedComplaint.description}
             </p>
 
             <div
               style={{
                 fontSize: '0.8rem',
-                color: '#94a3b8',
+                color: '#667784',
                 display: 'flex',
                 flexDirection: 'column',
                 gap: '4px',
-                marginBottom: '14px'
+                marginBottom: '12px'
               }}
             >
               <div>
-                <strong>Affected Pipe:</strong>{' '}
-                <span style={{ color: '#06b6d4' }}>{selectedComplaint.pipelineName}</span>
+                <strong>Affected Pipeline:</strong>{' '}
+                <span style={{ color: '#2563a6', fontWeight: 600 }}>{selectedComplaint.pipelineName}</span>
               </div>
               <div>
                 <strong>Status:</strong>{' '}
-                <span style={{ textTransform: 'capitalize', color: '#f8fafc' }}>
+                <span style={{ textTransform: 'capitalize', color: '#1f2933', fontWeight: 600 }}>
                   {selectedComplaint.status}
                 </span>
               </div>
               <div>
-                <strong>Assigned Officer:</strong>{' '}
+                <strong>Assigned Team:</strong>{' '}
                 {officers.find((o) => o.id === selectedComplaint.assignedOfficerId)?.name ||
                   'Eng. Rajesh Kumar'}
               </div>
@@ -322,9 +321,9 @@ export const MapView = () => {
             {selectedComplaint.aiRecommendation && (
               <div
                 style={{
-                  background: 'rgba(13, 148, 136, 0.15)',
-                  border: '1px solid rgba(13, 148, 136, 0.4)',
-                  borderRadius: '8px',
+                  background: '#f8fafc',
+                  border: '1px solid #d9e2e8',
+                  borderRadius: '6px',
                   padding: '10px',
                   fontSize: '0.78rem',
                   marginBottom: '12px'
@@ -334,15 +333,15 @@ export const MapView = () => {
                   style={{
                     display: 'flex',
                     alignItems: 'center',
-                    gap: '4px',
-                    color: '#2dd4bf',
+                    gap: '6px',
+                    color: '#16324f',
                     fontWeight: 700,
                     marginBottom: '4px'
                   }}
                 >
-                  <Cpu size={14} /> AI Recommendation
+                  <Activity size={14} color="#2563a6" /> Operational Diagnostics
                 </div>
-                <div style={{ color: '#99f6e4' }}>{selectedComplaint.aiRecommendation}</div>
+                <div style={{ color: '#334155' }}>{selectedComplaint.aiRecommendation}</div>
               </div>
             )}
 
@@ -360,12 +359,12 @@ export const MapView = () => {
                   style={{
                     width: '100%',
                     textAlign: 'center',
-                    color: '#10b981',
+                    color: '#15803d',
                     fontSize: '0.85rem',
                     fontWeight: 700
                   }}
                 >
-                  ✓ Issue Fully Resolved
+                  ✓ Issue Resolved
                 </div>
               )}
             </div>
@@ -376,11 +375,11 @@ export const MapView = () => {
             style={{
               padding: '16px',
               textAlign: 'center',
-              color: '#64748b',
+              color: '#667784',
               fontSize: '0.85rem'
             }}
           >
-            Click any marker or complaint on the map to inspect spatial attributes.
+            Click any marker or polyline on the map to view operational attributes.
           </div>
         )}
       </aside>
@@ -394,7 +393,7 @@ export const MapView = () => {
           style={{ width: '100%', height: '100%' }}
         >
           <TileLayer
-            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors | AquaMap GIS'
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors | AquaMap Municipal GIS'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
 
@@ -418,17 +417,17 @@ export const MapView = () => {
                   key={pipe.id}
                   positions={pipe.coords}
                   pathOptions={{
-                    color: isAffected ? '#f43f5e' : '#0284c7',
-                    weight: isAffected ? 7 : 4,
-                    dashArray: isAffected ? '12, 12' : null,
-                    opacity: isAffected ? 0.95 : 0.75,
+                    color: isAffected ? '#dc2626' : '#2563a6',
+                    weight: isAffected ? 6 : 4,
+                    dashArray: isAffected ? '8, 8' : null,
+                    opacity: isAffected ? 0.95 : 0.8,
                     className: isAffected ? 'pulsing-defect-line' : ''
                   }}
                 >
                   <Popup>
                     <div style={{ padding: '4px', minWidth: '180px' }}>
-                      <h4 style={{ color: '#0f172a', fontWeight: 800 }}>{pipe.name}</h4>
-                      <p style={{ fontSize: '0.8rem', color: '#475569', margin: '4px 0' }}>
+                      <h4 style={{ color: '#16324f', fontWeight: 800 }}>{pipe.name}</h4>
+                      <p style={{ fontSize: '0.8rem', color: '#64748b', margin: '4px 0' }}>
                         ID: {pipe.id} | Zone: {pipe.zone}
                       </p>
                       <hr style={{ margin: '6px 0', borderTop: '1px solid #e2e8f0' }} />
@@ -440,20 +439,20 @@ export const MapView = () => {
                           <strong>Material:</strong> {pipe.material}
                         </div>
                         <div>
-                          <strong>Operating Pressure:</strong> {pipe.pressure}
+                          <strong>Pressure:</strong> {pipe.pressure}
                         </div>
                         {isAffected && (
                           <div
                             style={{
-                              color: '#e11d48',
+                              color: '#b91c1c',
                               fontWeight: 700,
                               marginTop: '4px',
-                              background: '#ffe4e6',
-                              padding: '4px',
+                              background: '#fee2e2',
+                              padding: '4px 6px',
                               borderRadius: '4px'
                             }}
                           >
-                            ⚠️ Active Defect Highlighted
+                            ⚠️ Active Defect Segment Highlighted
                           </div>
                         )}
                       </div>
@@ -479,8 +478,8 @@ export const MapView = () => {
                   <div style={{ padding: '4px', minWidth: '190px' }}>
                     <span
                       style={{
-                        background: isPump ? '#0d9488' : '#0284c7',
-                        color: '#fff',
+                        background: isPump ? '#16324f' : '#2f7f83',
+                        color: '#ffffff',
                         fontSize: '0.7rem',
                         fontWeight: 700,
                         padding: '2px 6px',
@@ -489,7 +488,7 @@ export const MapView = () => {
                     >
                       {item.type}
                     </span>
-                    <h4 style={{ color: '#0f172a', fontWeight: 800, marginTop: '4px' }}>
+                    <h4 style={{ color: '#16324f', fontWeight: 800, marginTop: '4px' }}>
                       {item.name}
                     </h4>
                     <div
@@ -506,7 +505,7 @@ export const MapView = () => {
                         <strong>Capacity / Spec:</strong> {item.capacity}
                       </div>
                       <div>
-                        <strong>Current Level / Output:</strong> {item.currentLevel}
+                        <strong>Current Level:</strong> {item.currentLevel}
                       </div>
                       <div>
                         <strong>Status:</strong> {item.status}
@@ -539,8 +538,8 @@ export const MapView = () => {
                     <div style={{ padding: '4px', minWidth: '200px' }}>
                       <span
                         style={{
-                          background: cmp.status === 'Resolved' ? '#10b981' : '#f43f5e',
-                          color: 'white',
+                          background: cmp.status === 'Resolved' ? '#16a34a' : '#dc2626',
+                          color: '#ffffff',
                           fontSize: '0.7rem',
                           fontWeight: 700,
                           padding: '2px 6px',
@@ -549,7 +548,7 @@ export const MapView = () => {
                       >
                         {cmp.id} - {cmp.priority} Priority
                       </span>
-                      <h4 style={{ color: '#0f172a', fontWeight: 800, marginTop: '4px' }}>
+                      <h4 style={{ color: '#16324f', fontWeight: 800, marginTop: '4px' }}>
                         {cmp.type}
                       </h4>
                       <p style={{ fontSize: '0.8rem', color: '#475569', margin: '4px 0' }}>
@@ -563,8 +562,8 @@ export const MapView = () => {
                       <button
                         style={{
                           width: '100%',
-                          background: '#0284c7',
-                          color: 'white',
+                          background: '#2563a6',
+                          color: '#ffffff',
                           border: 'none',
                           padding: '6px',
                           borderRadius: '4px',
@@ -574,7 +573,7 @@ export const MapView = () => {
                         }}
                         onClick={() => setSelectedComplaint(cmp)}
                       >
-                        Highlight Pipeline Segment
+                        Select Affected Pipeline
                       </button>
                     </div>
                   </Popup>

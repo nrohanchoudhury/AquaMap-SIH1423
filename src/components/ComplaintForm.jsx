@@ -7,10 +7,9 @@ import {
   Send,
   MapPin,
   Compass,
-  Cpu,
-  AlertOctagon,
   CheckCircle2,
-  FileSpreadsheet
+  FileSpreadsheet,
+  Activity
 } from 'lucide-react';
 
 export const ComplaintForm = () => {
@@ -40,7 +39,7 @@ export const ComplaintForm = () => {
     }
   }, [selectedLocationForForm]);
 
-  // Live Rule-based AI Engine Preview
+  // Live Rule-based Classifier Diagnostics
   const aiPreview = classifyWaterIssue(type, description);
 
   // Live Spatial Nearest Pipe calculation
@@ -83,7 +82,7 @@ export const ComplaintForm = () => {
   const handleOpenMapPinPicker = () => {
     setIsPinPickerActive(true);
     setActiveTab('map');
-    addToast('Pin Dropper Active', 'Click anywhere on the GIS map to drop a pin.', 'info');
+    addToast('Pin Dropper Active', 'Click anywhere on the GIS map to set coordinates.', 'info');
   };
 
   const handleSubmit = (e) => {
@@ -102,11 +101,10 @@ export const ComplaintForm = () => {
       lng
     });
 
-    // Trigger celebratory confetti effect for civic participation!
     try {
       confetti({
-        particleCount: 60,
-        spread: 70,
+        particleCount: 50,
+        spread: 60,
         origin: { y: 0.6 }
       });
     } catch (e) {}
@@ -114,27 +112,29 @@ export const ComplaintForm = () => {
 
   return (
     <div className="form-container">
-      <div className="card" style={{ padding: '30px' }}>
+      <div className="card" style={{ padding: '28px' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '8px' }}>
           <div
             style={{
               padding: '10px',
-              borderRadius: '12px',
-              background: 'rgba(6, 182, 212, 0.15)',
-              color: '#06b6d4'
+              borderRadius: '10px',
+              background: '#eaf3f8',
+              color: '#2563a6'
             }}
           >
-            <FileSpreadsheet size={28} />
+            <FileSpreadsheet size={24} />
           </div>
           <div>
-            <h2 style={{ fontSize: '1.4rem', fontWeight: 800 }}>Citizen Water Complaint Report</h2>
-            <p style={{ fontSize: '0.88rem', color: '#94a3b8' }}>
-              Log a municipal water network issue with precise GIS positioning & automated AI classification.
+            <h2 style={{ fontSize: '1.3rem', fontWeight: 800, color: '#16324f' }}>
+              Citizen Water Issue Submission
+            </h2>
+            <p style={{ fontSize: '0.88rem', color: '#667784' }}>
+              Log a municipal water network complaint with exact GIS coordinates & automated issue diagnostics.
             </p>
           </div>
         </div>
 
-        <form onSubmit={handleSubmit} style={{ marginTop: '24px' }}>
+        <form onSubmit={handleSubmit} style={{ marginTop: '20px' }}>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
             <div className="form-group">
               <label>Citizen / Reporter Name</label>
@@ -160,7 +160,7 @@ export const ComplaintForm = () => {
           </div>
 
           <div className="form-group">
-            <label>Issue Type *</label>
+            <label>Complaint Type *</label>
             <select
               className="form-select"
               value={type}
@@ -176,25 +176,25 @@ export const ComplaintForm = () => {
           </div>
 
           <div className="form-group">
-            <label>Detailed Problem Description</label>
+            <label>Detailed Description</label>
             <textarea
               className="form-textarea"
               rows={3}
-              placeholder="Describe symptoms (e.g., heavy water gushing from main line joint, dirty water smell, dry taps since morning)..."
+              placeholder="Describe symptoms (e.g. heavy water gushing from pipe joint, low pressure during morning supply)..."
               value={description}
               onChange={(e) => setDescription(e.target.value)}
             ></textarea>
           </div>
 
-          {/* Real-time AI Rule Engine Preview */}
+          {/* Automated Classification Preview Box */}
           <div className="ai-preview-box">
             <div className="ai-header">
-              <Cpu size={18} />
-              <span>Real-Time AI Rule Classifier & Priority Engine</span>
+              <Activity size={18} color="#2563a6" />
+              <span>Automated Issue & Priority Classification</span>
               <span
                 style={{
                   fontSize: '0.75rem',
-                  color: '#94a3b8',
+                  color: '#667784',
                   marginLeft: 'auto',
                   fontFamily: 'var(--font-mono)'
                 }}
@@ -203,16 +203,17 @@ export const ComplaintForm = () => {
               </span>
             </div>
 
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px', marginBottom: '10px' }}>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginBottom: '10px' }}>
               <span className={'badge badge-' + (aiPreview.priority ? aiPreview.priority.toLowerCase() : 'medium')}>
-                Predicted Urgency: {aiPreview.priority}
+                Priority: {aiPreview.priority}
               </span>
               <span className="badge badge-assigned">Category: {aiPreview.category}</span>
               <span
                 style={{
-                  fontSize: '0.78rem',
-                  color: '#cbd5e1',
-                  background: 'rgba(255,255,255,0.05)',
+                  fontSize: '0.76rem',
+                  color: '#475569',
+                  background: '#ffffff',
+                  border: '1px solid #cbd5e1',
                   padding: '3px 8px',
                   borderRadius: '4px'
                 }}
@@ -221,19 +222,19 @@ export const ComplaintForm = () => {
               </span>
             </div>
 
-            <div style={{ fontSize: '0.82rem', color: '#99f6e4' }}>
-              <strong>Recommended Action:</strong> {aiPreview.recommendation}
+            <div style={{ fontSize: '0.82rem', color: '#1e293b' }}>
+              <strong>Recommended Field Action:</strong> {aiPreview.recommendation}
             </div>
           </div>
 
-          {/* Geolocation & Map Pin Picker Section */}
+          {/* Geolocation Section */}
           <div
             style={{
-              background: 'rgba(15, 23, 42, 0.6)',
+              background: '#f8fafc',
               border: '1px solid var(--border-color)',
               borderRadius: 'var(--radius-md)',
               padding: '16px',
-              marginBottom: '24px'
+              marginBottom: '20px'
             }}
           >
             <label
@@ -241,14 +242,14 @@ export const ComplaintForm = () => {
                 display: 'flex',
                 alignItems: 'center',
                 gap: '6px',
-                fontSize: '0.9rem',
+                fontSize: '0.88rem',
                 fontWeight: 700,
-                color: 'var(--text-main)',
-                marginBottom: '12px'
+                color: '#16324f',
+                marginBottom: '10px'
               }}
             >
-              <MapPin size={18} color="#06b6d4" />
-              <span>GIS Geolocation Coordinates *</span>
+              <MapPin size={18} color="#2563a6" />
+              <span>GIS Coordinates & Location *</span>
             </label>
 
             <div
@@ -260,7 +261,7 @@ export const ComplaintForm = () => {
               }}
             >
               <div>
-                <span style={{ fontSize: '0.78rem', color: '#94a3b8' }}>Latitude</span>
+                <span style={{ fontSize: '0.78rem', color: '#667784' }}>Latitude</span>
                 <input
                   type="number"
                   step="any"
@@ -272,7 +273,7 @@ export const ComplaintForm = () => {
               </div>
 
               <div>
-                <span style={{ fontSize: '0.78rem', color: '#94a3b8' }}>Longitude</span>
+                <span style={{ fontSize: '0.78rem', color: '#667784' }}>Longitude</span>
                 <input
                   type="number"
                   step="any"
@@ -292,18 +293,18 @@ export const ComplaintForm = () => {
                 onClick={handleUseGPS}
                 disabled={isLocating}
               >
-                <Compass size={16} />
-                {isLocating ? 'Acquiring GPS...' : 'Use Current Device GPS'}
+                <Compass size={15} />
+                {isLocating ? 'Acquiring GPS...' : 'Use Device GPS'}
               </button>
 
               <button
                 type="button"
                 className="btn-secondary"
-                style={{ flex: 1, fontSize: '0.82rem', borderColor: 'var(--primary-aqua)' }}
+                style={{ flex: 1, fontSize: '0.82rem', borderColor: '#2563a6', color: '#2563a6' }}
                 onClick={handleOpenMapPinPicker}
               >
-                <MapPin size={16} color="#06b6d4" />
-                Select Location on Map Pin
+                <MapPin size={15} color="#2563a6" />
+                Select on Map Pin
               </button>
             </div>
 
@@ -312,8 +313,9 @@ export const ComplaintForm = () => {
                 style={{
                   marginTop: '12px',
                   fontSize: '0.8rem',
-                  color: '#38bdf8',
-                  background: 'rgba(6, 182, 212, 0.1)',
+                  color: '#0369a1',
+                  background: '#e0f2fe',
+                  border: '1px solid #7dd3fc',
                   padding: '8px 12px',
                   borderRadius: '6px',
                   display: 'flex',
@@ -330,9 +332,9 @@ export const ComplaintForm = () => {
             )}
           </div>
 
-          <button type="submit" className="btn-primary" style={{ width: '100%', padding: '14px' }}>
-            <Send size={18} />
-            Submit Complaint to Municipal Network
+          <button type="submit" className="btn-primary" style={{ width: '100%', padding: '12px' }}>
+            <Send size={16} />
+            Submit Complaint Report
           </button>
         </form>
       </div>
